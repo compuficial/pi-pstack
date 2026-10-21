@@ -1,0 +1,65 @@
+name: Update upstream pstack
+
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-upstream-pstack
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.repository == 'compuficial/pi-pstack'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Fetch upstream
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/cursor/plugins.git "$RUNNER_TEMP/pstack-upstream"
+          git -C "$RUNNER_TEMP/pstack-upstream" sparse-checkout set pstack
+      - name: Sync committed upstream source
+        run: node scripts/update-upstream.mjs "$RUNNER_TEMP/pstack-upstream"
+      - name: Open or refresh review PR
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
+        with:
+          branch: automation/update-pstack
+          base: main
+          draft: always-true
+          reviewers: compuficial
+          commit-message: Update vendored pstack
+          title: Update vendored pstack
+          add-paths: |
+            vendor/pstack
+            skills
+            UPSTREAM.json
+            README.md
+          body: |
+            ## Upstream pstack update
+
+            Syncs the committed `pstack/` source from [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack).
+            The exact revision is recorded in `UPSTREAM.json`. Unrelated plugin changes do not open a PR.
+
+            Includes upstream skills, references, scripts, agents, and documentation;
+            regenerates Pi wrappers, removes obsolete wrappers, and updates the README skill count.
+            The Pi runtime and adaptation mappings are not changed automatically.
+
+            ### Review before merging
+            - Review the upstream diff and any changed runtime assumptions.
+            - Update `docs/pi-runtime.md` or the adapter if needed.
+            - Mark this draft **Ready for review** to trigger CI, then require passing checks.
+
+            PRs created with `GITHUB_TOKEN` do not trigger normal PR workflows automatically.
+            This bot maintains only `automation/update-pstack` and never merges changes.

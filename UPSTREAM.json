@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/cursor/plugins",
+  "directory": "pstack",
+  "commit": "d457567332aa6989e753ea289f30ea2bfbc80bc0",
+  "retrieved": "2026-10-19",
+  "license": "MIT",
+  "adaptation": "Original source preserved in vendor/pstack; Pi runtime in extensions, src, docs, and skill wrappers."
+}

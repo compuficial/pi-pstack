@@ -1,0 +1,7 @@
+---
+name: pstack-typescript-best-practices
+description: "Run pstack's typescript-best-practices workflow or consult its typescript-best-practices rules."
+disable-model-invocation: true
+---
+
+Read `../../docs/pi-runtime.md` first, then read `../../vendor/pstack/skills/typescript-best-practices/SKILL.md` in full. Apply the Pi runtime mappings to that workflow and its dependencies. Resolve relative references from the upstream skill directory.
