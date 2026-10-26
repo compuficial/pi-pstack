@@ -11,7 +11,7 @@ This independent adaptation preserves the upstream source and adds a Pi-native r
 
 ## Features
 
-- **56 bundled skills:** upstream workflows and engineering principles, available through namespaced commands.
+- **58 bundled skills:** upstream workflows and engineering principles, available through namespaced commands.
 - **Persistent Poteto Mode:** keep pstack instructions active across turns, reloads, and session resumption, following the active session branch.
 - **Parallel workers:** run independent local Pi processes with role-based model panels, cancellation, token usage, and saved transcripts.
 - **Project-level model configuration:** choose available Pi models per role without editing upstream instructions.
