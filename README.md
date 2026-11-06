@@ -26,19 +26,13 @@ New to Pi? Follow the [Pi installation guide](https://github.com/earendil-works/
 
 ## Install
 
-Install the published npm package:
-
-```sh
-pi install npm:@compuficial/pi-pstack
-```
-
-Or track the latest upstream commits directly from GitHub:
+Install from GitHub:
 
 ```sh
 pi install git:github.com/compuficial/pi-pstack
 ```
 
-Choose one source; installing both loads duplicate commands. Start Pi, or run `/reload` in an existing session. For a project-only installation, add `--local` to the install command.
+The npm package `@compuficial/pi-pstack` is not published yet. Once it is, install with `pi install npm:@compuficial/pi-pstack`. Choose one source; installing both loads duplicate commands. Start Pi, or run `/reload` in an existing session. For a project-only installation, add `--local` to the install command.
 
 Review the package before installing or trusting project-local resources. Extensions run with your account's permissions; workers can read files, edit code, and execute commands.
 
@@ -50,7 +44,7 @@ Update all installed packages, then run `/reload`:
 pi update --extensions
 ```
 
-Unpinned npm installations follow published releases; unpinned Git installations follow upstream commits. To update only this package, use `pi update` followed by the source you installed.
+Unpinned npm installations follow published releases; unpinned Git installations follow this repository's `main` branch, which receives upstream pstack changes only after review. To update only this package, use `pi update` followed by the source you installed.
 
 For reproducible installations, append `@<version>` to the npm source or `@<commit-sha>` to the Git source. A pinned installation stays on that version or commit; choose a new version or ref explicitly to upgrade it.
 
